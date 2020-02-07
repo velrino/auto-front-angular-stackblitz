@@ -1,0 +1,24 @@
+<div *ngFor="let render of data.body.render">
+	<div *ngIf="isRender(render, 'text')">
+		<h3 *ngIf="isRender(render, 'text')">{{ render.value.header }}</h3>
+		<h5 *ngIf="isRender(render, 'text')">{{ render.value.text }}</h5>
+	</div>
+
+	<input *ngIf="isRender(render, 'input')"
+  [name]="render.value.name"
+  [type]="render.value.type"
+  [(ngModel)]="form[render.value.name]"
+  (change)="runFuncByString(render.value.events.change)">
+  
+  <select *ngIf="isRender(render, 'select')" (change)="runFuncByString(render.value.events.change)">
+    <option *ngFor="let option of render.value.options" [value]="option.id">{{option.text}}</option>
+  </select>
+</div>
+
+	<footer>
+		<button
+  *ngFor="let render of data.footer.buttons.render"
+  (click)="runFuncByString(render.events.click)">
+    {{ render.text }}
+  </button>
+	</footer>
